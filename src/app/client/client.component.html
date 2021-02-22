@@ -1,0 +1,106 @@
+<div class="container mt-50 horizontal-cente">
+  <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputid">Id</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNumber"
+          placeholder="Id e.g 123456"
+          formControlName="clientNumber"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputName">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputName"
+          placeholder="Name"
+          formControlName="clientName"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputSurname">SurName</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputSurname"
+          placeholder="Surname"
+          formControlName="clientSurname"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputCity">Phone</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputPhone"
+          placeholder="Phone"
+          formControlName="clientPhone"
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!clientForm.valid"
+    >
+      Guardar
+    </button>
+    <button type="reset" class="btn btn-primary" (click)="resetForm()">
+      Reset
+    </button>
+    <span>
+      <p *ngIf="dataSaved">
+        {{ message }}
+      </p></span
+    >
+
+    <div class="row">
+      <table class="table table-striped">
+        <tr>
+          <td>Id</td>
+          <td>IdNumber</td>
+
+          <td>Name</td>
+          <td>Surname</td>
+          <td>Phone</td>
+
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+
+        <tr *ngFor="let client of allClients | async">
+          <td>{{ client.clientId }}</td>
+          <td>{{ client.clientNumber }}</td>
+          <td>{{ client.clientName }}</td>
+          <td>{{ client.clientSurname }}</td>
+          <td>{{ client.clientPhone }}</td>
+          <td>
+            <a
+              (click)="loadClientToEdit(client.clientId)"
+              class="btn btn-warning"
+              >Edit</a
+            >
+          </td>
+          <td>
+            <a (click)="deleteClient(client.clientId)" class="btn btn-danger"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>

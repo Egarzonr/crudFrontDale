@@ -1,0 +1,75 @@
+<div class="container mt-50 horizontal-cente">
+  <form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputName">Product</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputName"
+          placeholder="Name"
+          formControlName="productName"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inputUnitvalue">Valor Unitario</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputUnitvalue"
+          placeholder="valor unitario"
+          formControlName="productUnitvalue"
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!productForm.valid"
+    >
+      Guardar
+    </button>
+    <button type="reset" class="btn btn-primary" (click)="resetForm()">
+      Reset
+    </button>
+    <span>
+      <p *ngIf="dataSaved">
+        {{ message }}
+      </p></span
+    >
+
+    <div class="row">
+      <table class="table table-striped">
+        <tr>
+          <td>Id</td>
+          <td>Nombre</td>
+          <td>Valor unitario</td>
+
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+
+        <tr *ngFor="let product of allProducts | async">
+          <td>{{ product.productId }}</td>
+          <td>{{ product.productName }}</td>
+          <td>{{ product.productUnitvalue }}</td>
+          <td>
+            <a
+              (click)="loadProductToEdit(product.productId)"
+              class="btn btn-warning"
+              >Edit</a
+            >
+          </td>
+          <td>
+            <a (click)="deleteProduct(product.productId)" class="btn btn-danger"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>
