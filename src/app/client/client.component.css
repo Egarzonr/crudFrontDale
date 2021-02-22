@@ -1,11 +1,11 @@
-.mt-50 {
-  margin-top: 50px;
-}
-.align-center {
-  text-align: center;
+.client-form {
+  margin-bottom: 20px;
 }
 
-.horizontal-center {
-  margin-left: auto;
-  margin-right: auto;
+.btn-margin-bot {
+  margin-bottom: 20px;
+}
+
+.btn-margin-left {
+  margin-left: 20px;
 }

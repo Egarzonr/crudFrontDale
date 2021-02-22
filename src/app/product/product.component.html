@@ -1,74 +1,86 @@
-<div class="container mt-50 horizontal-cente">
+<h2>Mantenimiento de productos</h2>
+
+<div class="product-form">
   <form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="inputName">Product</label>
+    <div class="row mb-3">
+      <label for="inputPName" class="col-sm-2 col-form-label">Nombre</label>
+      <div class="col-sm-10">
         <input
           type="text"
           class="form-control"
-          id="inputName"
-          placeholder="Name"
+          id="inputPName"
           formControlName="productName"
         />
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="inputUnitvalue">Valor Unitario</label>
+    <div class="row mb-3">
+      <label for="inputPValue" class="col-sm-2 col-form-label">Valor</label>
+      <div class="col-sm-10">
         <input
           type="text"
           class="form-control"
-          id="inputUnitvalue"
-          placeholder="valor unitario"
+          id="inputPValue"
           formControlName="productUnitvalue"
         />
       </div>
     </div>
 
     <button
+      type="reset"
+      class="btn btn-secondary btn-margin-bot"
+      (click)="resetForm()"
+    >
+      Reset
+    </button>
+
+    <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-primary btn-margin-bot btn-margin-left"
       [disabled]="!productForm.valid"
     >
       Guardar
     </button>
-    <button type="reset" class="btn btn-primary" (click)="resetForm()">
-      Reset
-    </button>
+
     <span>
       <p *ngIf="dataSaved">
         {{ message }}
       </p></span
     >
 
-    <div class="row">
-      <table class="table table-striped">
-        <tr>
-          <td>Id</td>
-          <td>Nombre</td>
-          <td>Valor unitario</td>
-
-          <td>Edit</td>
-          <td>Delete</td>
-        </tr>
-
-        <tr *ngFor="let product of allProducts | async">
-          <td>{{ product.productId }}</td>
-          <td>{{ product.productName }}</td>
-          <td>{{ product.productUnitvalue }}</td>
-          <td>
-            <a
-              (click)="loadProductToEdit(product.productId)"
-              class="btn btn-warning"
-              >Edit</a
-            >
-          </td>
-          <td>
-            <a (click)="deleteProduct(product.productId)" class="btn btn-danger"
-              >Delete</a
-            >
-          </td>
-        </tr>
+    <div class="table-result">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of allProducts | async">
+            <td>{{ product.productId }}</td>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productUnitvalue }}</td>
+            <td>
+              <a
+                (click)="loadProductToEdit(product.productId)"
+                class="btn btn-warning"
+              >
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td>
+              <a
+                (click)="deleteProduct(product.productId)"
+                class="btn btn-danger"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </form>

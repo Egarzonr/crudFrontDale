@@ -1,149 +1,111 @@
-<div class="container mt-50 horizontal-cente">
+<h2>Venta de productos</h2>
+
+<div class="client-form">
   <form [formGroup]="saleForm" (ngSubmit)="onFormSubmit()">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="productName">Producto</label>
+    <div class="row mb-3">
+      <label for="inputClient" class="col-sm-2 col-form-label"
+        >Nombre de Cliente</label
+      >
+      <div class="col-sm-10">
         <input
           type="text"
           class="form-control"
-          id="productName"
-          placeholder="Name"
-          formControlName="productName"
-        />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="clientName">Nombre Cliente</label>
-        <input
-          type="text"
-          class="form-control"
-          id="clientName"
-          placeholder="Name"
+          id="inputClient"
           formControlName="clientName"
         />
       </div>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <br />
-        <label for="productName">Producto</label>
-        <select
-          formControlName="productName"
-          class="form-select"
-          aria-label="Default select example"
-          id="productName"
-          name="product"
-        >
-          <option value="">Select</option>
-
-          <option *ngFor="let product of allProducts" [ngValue]="product">
-            {{ product.productName }}
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <!-- <div class="form-row">
-      <div class="form-group">
-        <br />
-        <label for="clientName">Nombre de Cliente</label>
-        <select class="form-control" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option *ngFor="let client of allClients" [ngValue]="client">
-            {{ client.clientName }}
-          </option>
-        </select>
-
+    <div class="row mb-3">
+      <label for="inputProductName" class="col-sm-2 col-form-label"
+        >Nombre de Producto</label
+      >
+      <div class="col-sm-10">
         <input
           type="text"
           class="form-control"
-          id="clientName"
-          placeholder="Name"
-          formControlName="clientName"
+          id="inputProductName"
+          formControlName="productName"
         />
       </div>
-    </div> -->
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="quantity">Cantidad</label>
+    </div>
+    <div class="row mb-3">
+      <label for="inputProductValue" class="col-sm-2 col-form-label"
+        >Valor unitario</label
+      >
+      <div class="col-sm-10">
         <input
           type="text"
           class="form-control"
-          id="quantity"
-          placeholder="Name"
+          id="inputProductValue"
+          formControlName="productUnitvalue"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputProductQuantity" class="col-sm-2 col-form-label"
+        >Cantidad</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="number"
+          class="form-control"
+          id="inputProductQuantity"
+          min="1"
           formControlName="saleQuantity"
         />
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="inputUnitvalue">Valor Unitario</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputUnitvalue"
-          placeholder="valor unitario"
-          formControlName="productUnitvalue"
-        />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="inputUnitvalue">Valor total</label>
-        <p></p>
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="!saleForm.valid">
-      Guardar
-    </button>
-    <button type="reset" class="btn btn-primary" (click)="resetForm()">
+    <button
+      type="reset"
+      class="btn btn-secondary btn-margin-bot"
+      (click)="resetForm()"
+    >
       Reset
     </button>
-    <span>
-      <p *ngIf="dataSaved">
-        {{ message }}
-      </p></span
+
+    <button
+      type="submit"
+      class="btn btn-primary btn-margin-bot btn-margin-left"
+      [disabled]="!saleForm.valid"
     >
+      Guardar
+    </button>
 
-    <div class="row">
-      <table class="table table-striped">
-        <tr>
-          <td>Id</td>
-          <td>Producto</td>
-          <td>Nombre del cliente</td>
-          <td>Cantidad</td>
-          <td>Valor unitario</td>
-          <td>Valor total</td>
-
-          <td>Edit</td>
-          <td>Delete</td>
-        </tr>
-
-        <tr *ngFor="let sale of allSales | async">
-          <td>{{ sale.saleId }}</td>
-          <td>{{ sale.productName }}</td>
-          <td>{{ sale.clientName }}</td>
-          <td>{{ sale.saleQuantity }}</td>
-          <td>{{ sale.productUnitvalue }}</td>
-          <td>{{ sale.saleQuantity * sale.productUnitvalue }}</td>
-          <td>
-            <a (click)="loadSaleToEdit(sale.saleId)" class="btn btn-warning"
-              >Edit</a
-            >
-          </td>
-          <td>
-            <a (click)="deleteSale(sale.saleId)" class="btn btn-danger"
-              >Delete</a
-            >
-          </td>
-        </tr>
+    <div class="table-result">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre cliente</th>
+            <th scope="col">Nombre producto</th>
+            <th scope="col">Valor unitario</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Valor total</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of allSales | async">
+            <td>{{ sale.saleId }}</td>
+            <td>{{ sale.productName }}</td>
+            <td>{{ sale.clientName }}</td>
+            <td>{{ sale.saleQuantity }}</td>
+            <td>{{ sale.productUnitvalue }}</td>
+            <td>{{ sale.saleQuantity * sale.productUnitvalue }}</td>
+            <td>
+              <a (click)="loadSaleToEdit(sale.saleId)" class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td>
+              <a (click)="deleteSale(sale.saleId)" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </form>
